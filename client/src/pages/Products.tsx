@@ -3,13 +3,14 @@ import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import ProductCard from "@/components/products/ProductCard";
+import { ProductGridSkeleton } from "@/components/products/ProductCardSkeleton";
 import { Grid, List } from "lucide-react";
 
 export default function Products() {
   const [view, setView] = useState<'grid' | 'list'>('grid');
   const [search, setSearch] = useState('');
 
-  const { data: products } = useQuery({
+  const { data: products, isLoading } = useQuery({
     queryKey: ['/api/products', search],
   });
 
@@ -34,18 +35,22 @@ export default function Products() {
         </div>
       </div>
 
-      <div className={view === 'grid' ? 
-        "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" : 
-        "space-y-4"
-      }>
-        {products?.map((product: any) => (
-          <ProductCard 
-            key={product.id} 
-            product={product} 
-            view={view}
-          />
-        ))}
-      </div>
+      {isLoading ? (
+        <ProductGridSkeleton view={view} />
+      ) : (
+        <div className={view === 'grid' ? 
+          "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" : 
+          "space-y-4"
+        }>
+          {products?.map((product: any) => (
+            <ProductCard 
+              key={product.id} 
+              product={product} 
+              view={view}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
