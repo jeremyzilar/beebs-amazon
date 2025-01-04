@@ -1,6 +1,7 @@
 import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
 import { LayoutDashboard, Package, ShoppingCart } from "lucide-react";
+import ThemeToggle from "./ThemeToggle";
 
 const navItems = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
@@ -12,12 +13,13 @@ export default function Sidebar() {
   const [location] = useLocation();
 
   return (
-    <div className="w-64 bg-sidebar border-r h-screen fixed left-0 top-0">
-      <div className="p-6">
+    <div className="w-64 bg-sidebar border-r h-screen fixed left-0 top-0 flex flex-col">
+      <div className="p-6 flex items-center justify-between">
         <h1 className="text-xl font-bold text-sidebar-foreground">Amazon Seller</h1>
+        <ThemeToggle />
       </div>
-      
-      <nav className="space-y-1 px-3">
+
+      <nav className="space-y-1 px-3 flex-1">
         {navItems.map(({ href, label, icon: Icon }) => (
           <Link 
             key={href} 
