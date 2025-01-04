@@ -17,7 +17,7 @@ A streamlined dashboard for Amazon sellers using the SP-API.
    # Start the development server
    npm run dev
    ```
-3. The application will be available at `http://localhost:5000`
+3. The application will be available at `http://localhost:5001`
 
 ## Environment Variables
 
